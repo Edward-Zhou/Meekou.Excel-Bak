@@ -3,30 +3,27 @@
  * See LICENSE in the project root for license information.
  */
 
-/* global global, Office, self, window, document */
+/* global global, Office, self, window */
 
 Office.onReady(() => {
   // If needed, Office.js is ready to be called
 });
-var _count = 0;
+
 /**
  * Shows a notification when the add-in command is executed.
  * @param event
  */
 function action(event: Office.AddinCommands.Event) {
-  // const message: Office.NotificationMessageDetails = {
-  //   type: Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,
-  //   message: "Performed action.",
-  //   icon: "Icon.80x80",
-  //   persistent: true,
-  // };
+  const message: Office.NotificationMessageDetails = {
+    type: Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,
+    message: "Performed action.",
+    icon: "Icon.80x80",
+    persistent: true,
+  };
 
-  // // Show a notification message
-  // Office.context.mailbox.item.notificationMessages.replaceAsync("action", message);
-  // Your code goes here.
-  _count++;
-  Office.addin.showAsTaskpane();
-  document.getElementById("run").textContent = "Go" + _count;
+  // Show a notification message
+  Office.context.mailbox.item.notificationMessages.replaceAsync("action", message);
+
   // Be sure to indicate when the add-in command function is complete
   event.completed();
 }

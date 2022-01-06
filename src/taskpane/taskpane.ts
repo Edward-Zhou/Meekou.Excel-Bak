@@ -2,16 +2,34 @@
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
  */
-import "zone.js"; // Required for Angular
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-import AppModule from "./app/app.module";
-/* global console, document, Office */
 
+/* global console, document, Excel, Office */
+
+// The initialize function must be run each time a new page is loaded
 Office.initialize = () => {
   document.getElementById("sideload-msg").style.display = "none";
-
-  // Bootstrap the app
-  platformBrowserDynamic()
-    .bootstrapModule(AppModule)
-    .catch((error) => console.error(error));
+  document.getElementById("app-body").style.display = "flex";
+  document.getElementById("run").onclick = run;
 };
+
+export async function run() {
+  try {
+    await Excel.run(async (context) => {
+      /**
+       * Insert your Excel code here
+       */
+      const range = context.workbook.getSelectedRange();
+
+      // Read the range address
+      range.load("address");
+
+      // Update the fill color
+      range.format.fill.color = "yellow";
+
+      await context.sync();
+      console.log(`The range address was ${range.address}.`);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
