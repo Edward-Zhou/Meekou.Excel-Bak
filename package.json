@@ -19,12 +19,15 @@
     "prettier": "office-addin-lint prettier",
     "start": "npm run build & office-addin-debugging start manifest.xml",
     "start:desktop": "office-addin-debugging start manifest.xml desktop",
-    "start:web": "office-addin-debugging start manifest.xml web",
+    "start:web": "npm run build:dev & office-addin-debugging start manifest.xml web",
     "stop": "office-addin-debugging stop manifest.xml",
     "test:e2e": "mocha -r ts-node/register test/end-to-end/*.ts",
     "test:unit": "mocha -r ts-node/register test/unit/*.test.ts",
     "validate": "office-addin-manifest validate manifest.xml",
     "watch": "webpack --mode development --watch"
+  },
+  "config": {
+    "document":"https://edwarddev365-my.sharepoint.com/:x:/g/personal/edward_edwarddev365_onmicrosoft_com/EepeR1XOEctCpTfbWsoUFrkBaQmJh4eCn1sG_A6FpAHW_A?e=QKA3e9"
   },
   "dependencies": {
     "core-js": "^3.9.1",

@@ -8,7 +8,7 @@
  * @returns The sum of the two numbers.
  */
 export function add(first: number, second: number): number {
-  return first + second + 100;
+  return first + second + 400;
 }
 
 /**
