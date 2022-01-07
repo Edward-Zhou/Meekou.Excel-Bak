@@ -1,5 +1,74 @@
 ﻿/* global clearInterval, console, CustomFunctions, setInterval */
-
+/**
+ * 年终奖单独计税 VS 年终奖合并计税
+ * @customfunction
+ * @param yearincome 年累计税前收入
+ * @param yearaward 年终奖
+ * @param wuxianyijin 年累计五险一金
+ * @param special 年累计特殊扣除
+ * @param other 年其他累计扣除
+ * @param isSeparete 是否单独计税
+ * @returns 返回年累计缴税
+ */
+export function tax(
+  yearincome: number,
+  yearaward: number,
+  wuxianyijin: number,
+  special: number,
+  other: number,
+  isSeparete: boolean
+): number {
+  if (isSeparete) {
+    let yearTax = taxCal(yearincome - 60000 - wuxianyijin - special - other);
+    let awardTax = taxCal(yearaward, true);
+    return yearTax + awardTax;
+  } else {
+    return taxCal(yearincome + yearaward - 60000 - wuxianyijin - special - other);
+  }
+}
+function taxCal(taxincome: number, ismonthquick: boolean = false): number {
+  let rate: number = 0;
+  let quick: number = 0;
+  switch (true) {
+    case taxincome <= 0:
+      rate = 0;
+      quick = 0;
+      break;
+    case taxincome <= 36000:
+      rate = 0.03;
+      quick = 0;
+      break;
+    case taxincome <= 144000:
+      rate = 0.1;
+      quick = 2520;
+      break;
+    case taxincome <= 300000:
+      rate = 0.2;
+      quick = 16920;
+      break;
+    case taxincome <= 420000:
+      rate = 0.25;
+      quick = 31920;
+      break;
+    case taxincome <= 660000:
+      rate = 0.3;
+      quick = 52920;
+      break;
+    case taxincome <= 960000:
+      rate = 0.35;
+      quick = 85920;
+      break;
+    default:
+      rate = 0.45;
+      quick = 181920;
+      break;
+  }
+  if (ismonthquick) {
+    quick = quick / 12;
+  }
+  console.log(`${taxincome} * ${rate} - ${quick}`);
+  return taxincome * rate - quick;
+}
 /**
  * Adds two numbers.
  * @customfunction
