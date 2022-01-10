@@ -14,22 +14,23 @@ Office.initialize = () => {
 
 export async function run() {
   try {
-    await Excel.run(async (context) => {
-      /**
-       * Insert your Excel code here
-       */
-      const range = context.workbook.getSelectedRange();
+    // This sample creates an image as a Shape object in the worksheet.
+    var myFile = document.getElementById("fileUpload") as HTMLInputElement;
+    var reader = new FileReader();
+    reader.onload = () => {
+      Excel.run(function (context) {
+        var startIndex = reader.result.toString().indexOf("base64,");
+        var myBase64 = reader.result.toString().substr(startIndex + 7);
+        var sheet = context.workbook.worksheets.getActiveWorksheet();
+        var image = sheet.shapes.addImage(myBase64);
+        image.name = "Image";
+        return context.sync();
+      }).catch();
+    };
 
-      // Read the range address
-      range.load("address");
-
-      // Update the fill color
-      range.format.fill.color = "yellow";
-
-      await context.sync();
-      console.log(`The range address was ${range.address}.`);
-    });
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(myFile.files[0]);
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
