@@ -3,7 +3,7 @@
  * See LICENSE in the project root for license information.
  */
 
-/* global global, Office, self, window, document, Excel */
+/* global global, Office, self, window, document, Excel, console */
 
 Office.onReady(() => {
   // If needed, Office.js is ready to be called
@@ -19,7 +19,20 @@ function action(event: Office.AddinCommands.Event) {
   _count++;
   Office.addin.showAsTaskpane();
   document.getElementById("run").textContent = "Go" + _count;
+  Excel.run(function (context) {
+    var sheet = context.workbook.worksheets.getActiveWorksheet();
+    var range = sheet.getRange("C3");
+    // range.values = [[5]];
+    //get selected range
+    //var range = context.workbook.getSelectedRange();
+    sheet.getRange("A1").values = [["left"]];
+    sheet.getRange("A2").values = [[range.top.toString()]];
+    // sheet.getRange("A2").values = [["top" + range.top.toString()]];
+    // sheet.getRange("A3").values = [["width" + range.width.toString()]];
+    // sheet.getRange("A4").values = [["height" + range.height.toString()]];
 
+    return context.sync();
+  }).catch(errorHandlerFunction);
   // Be sure to indicate when the add-in command function is complete.
   event.completed();
 }
@@ -32,6 +45,7 @@ function InsertImgWithPreview(event: Office.AddinCommands.Event) {
   let fileInput = document.createElement("input");
   fileInput.type = "file";
   fileInput.style.display = "none";
+  fileInput.accept = "image/*";
   fileInput.onchange = async () => {
     var reader = new FileReader();
     reader.onload = () => {
@@ -39,10 +53,21 @@ function InsertImgWithPreview(event: Office.AddinCommands.Event) {
         var startIndex = reader.result.toString().indexOf("base64,");
         var myBase64 = reader.result.toString().substr(startIndex + 7);
         var sheet = context.workbook.worksheets.getActiveWorksheet();
+        //get selected range
+        var range = context.workbook.getSelectedRange();
+        sheet.getRange("A1").values = [["left" + range.left.toString()]];
+        sheet.getRange("A2").values = [["top" + range.top.toString()]];
+        sheet.getRange("A3").values = [["width" + range.width.toString()]];
+        sheet.getRange("A4").values = [["height" + range.height.toString()]];
         var image = sheet.shapes.addImage(myBase64);
         image.name = "Image";
+        //set image location and size
+        image.left = range.left;
+        image.top = range.top;
+        image.width = range.width;
+        image.height = range.height;
         return context.sync();
-      }).catch();
+      }).catch(errorHandlerFunction);
     };
     // Read in the image file as a data URL.
     reader.readAsDataURL(fileInput.files[0]);
@@ -50,7 +75,9 @@ function InsertImgWithPreview(event: Office.AddinCommands.Event) {
   fileInput.click();
   event.completed();
 }
-
+function errorHandlerFunction(e) {
+  console.log("exception" + e);
+}
 function getGlobal() {
   return typeof self !== "undefined"
     ? self

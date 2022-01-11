@@ -27,9 +27,6 @@
     "validate": "office-addin-manifest validate manifest.xml",
     "watch": "webpack --mode development --watch"
   },
-  "config": {
-    "document": "https://edwarddev365-my.sharepoint.com/:x:/g/personal/edward_edwarddev365_onmicrosoft_com/Eayjk1cT_FRIot8KzmXUmFgB4DfXVmCrtQRhl-JEb_avtQ?e=Zy9jXU"
-  },
   "dependencies": {
     "core-js": "^3.9.1",
     "regenerator-runtime": "^0.13.7"
