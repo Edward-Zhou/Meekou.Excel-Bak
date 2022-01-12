@@ -72,7 +72,7 @@
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
-                    <FunctionName>action</FunctionName>
+                    <FunctionName>login</FunctionName>
                   </Action>
                 </Control>
               </Group>
