@@ -2,15 +2,15 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
   <Id>7cba5e03-916c-4f8e-aece-a480575fa60a</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>Contoso</ProviderName>
+  <ProviderName>Meekou</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Meekou.Excel"/>
+  <DisplayName DefaultValue="Meekou.Title"/>
   <Description DefaultValue="Write your own Excel functions in TypeScript."/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://www.contoso.com/help"/>
   <AppDomains>
-    <AppDomain>https://www.contoso.com</AppDomain>
+    <AppDomain>https://www.meekou.cn</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Workbook"/>
@@ -52,40 +52,56 @@
           </GetStarted>
           <FunctionFile resid="Taskpane.Url"/>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
-            <OfficeTab id="TabHome">
-              <Group id="CommandsGroup">
-                <Label resid="CommandsGroup.Label"/>
+            <CustomTab id="Meekou.Tab">              
+              <Group id="Meekou.Tab.Group">
+                <Label resid="Meekou.Tab.Group.Label" />
                 <Icon>
-                  <bt:Image size="16" resid="Icon.16x16"/>
-                  <bt:Image size="32" resid="Icon.32x32"/>
-                  <bt:Image size="80" resid="Icon.80x80"/>
+                  <bt:Image size="16" resid="Meekou.Icon.16x16" />
+                  <bt:Image size="32" resid="Meekou.Icon.32x32" />
+                  <bt:Image size="80" resid="Meekou.Icon.80x80" />
                 </Icon>
-                <Control xsi:type="Button" id="TaskpaneButton">
-                  <Label resid="TaskpaneButton.Label"/>
+                <Control xsi:type="Button" id="Meekou.InsertImg">
+                  <Label resid="Meekou.InsertImg.Label" />
                   <Supertip>
-                    <Title resid="TaskpaneButton.Label"/>
-                    <Description resid="TaskpaneButton.Tooltip"/>
+                    <Title resid="Meekou.InsertImg.Title" />
+                    <Description resid="Meekou.InsertImg.Description" />
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
+                    <bt:Image size="16" resid="Meekou.Icon.16x16" />
+                    <bt:Image size="32" resid="Meekou.Icon.32x32" />
+                    <bt:Image size="80" resid="Meekou.Icon.80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>InsertImgWithPreview</FunctionName>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="Meekou.Login">
+                  <Label resid="Meekou.Login.Label" />
+                  <Supertip>
+                    <Title resid="Meekou.Login.Title" />
+                    <Description resid="Meekou.Login.Description" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Meekou.Icon.16x16" />
+                    <bt:Image size="32" resid="Meekou.Icon.32x32" />
+                    <bt:Image size="80" resid="Meekou.Icon.80x80" />
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
                     <FunctionName>login</FunctionName>
                   </Action>
                 </Control>
               </Group>
-            </OfficeTab>
+              <Label resid="Meekou.Tab.Label" />
+            </CustomTab>
           </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+        <bt:Image id="Meekou.Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
+        <bt:Image id="Meekou.Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+        <bt:Image id="Meekou.Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Functions.Script.Url" DefaultValue="https://localhost:3000/dist/functions.js"/>
@@ -96,12 +112,29 @@
         <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
+        <bt:String id="Meekou.Tab.Label" DefaultValue="Meekou">
+          <bt:Override Locale="zh-cn" Value="米可" />
+        </bt:String>
+        <bt:String id="Meekou.Tab.Group.Label" DefaultValue="MeekouShare">
+        </bt:String>
+        <bt:String id="Meekou.InsertImg.Label" DefaultValue="Insert Image">
+        </bt:String>
+        <bt:String id="Meekou.InsertImg.Title" DefaultValue="Insert Image">
+        </bt:String>
+        <bt:String id="Meekou.Login.Label" DefaultValue="Login">
+        </bt:String>
+        <bt:String id="Meekou.Login.Title" DefaultValue="Login">
+        </bt:String>
         <bt:String id="Functions.Namespace" DefaultValue="Meekou"/>
         <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
         <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane"/>
       </bt:ShortStrings>
       <bt:LongStrings>
+        <bt:String id="Meekou.InsertImg.Description" DefaultValue="Insert image with fill cell and preview">
+        </bt:String>
+        <bt:String id="Meekou.Login.Description" DefaultValue="Login">
+        </bt:String>
         <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded succesfully. Go to the HOME tab and click the 'Show Taskpane' button to get started."/>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane"/>
       </bt:LongStrings>
