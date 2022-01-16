@@ -25,6 +25,7 @@ module.exports = async (env, options) => {
       functions: "./src/functions/functions.ts",
       taskpane: "./src/taskpane/taskpane.ts",
       commands: "./src/commands/commands.ts",
+      login: "./src/login/login.ts",
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
