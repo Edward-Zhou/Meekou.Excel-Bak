@@ -4,7 +4,7 @@ const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CustomFunctionsMetadataPlugin = require("custom-functions-metadata-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const glob = require("glob");
 const urlDev = "https://localhost:3000/";
 const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
 
@@ -14,13 +14,20 @@ async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
   return { cacert: httpsOptions.ca, key: httpsOptions.key, cert: httpsOptions.cert };
 }
-
+//const meekou = glob.sync("./src/shared/AppConsts.ts");
 module.exports = async (env, options) => {
   const dev = options.mode === "development";
   const buildType = dev ? "dev" : "prod";
   const config = {
     devtool: "source-map",
     entry: {
+      meekou: [
+        "./src/shared/AppConsts.ts",
+        "./src/shared/MeekouConsts.ts",
+        "./src/services/meekouApi.ts",
+        "./src/services/common.model.ts",
+        "./src/services/http.ts",
+      ],
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       functions: "./src/functions/functions.ts",
       taskpane: "./src/taskpane/taskpane.ts",
@@ -73,12 +80,12 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
-        chunks: ["polyfill", "taskpane", "commands", "functions"],
+        chunks: ["polyfill", "taskpane", "commands", "functions", "meekou"],
       }),
       new HtmlWebpackPlugin({
         filename: "login.html",
         template: "./src/login/login.html",
-        chunks: ["polyfill", "login"],
+        chunks: ["polyfill", "login", "meekou"],
       }),
       new CopyWebpackPlugin({
         patterns: [

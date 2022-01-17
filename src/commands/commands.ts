@@ -3,6 +3,7 @@
  * See LICENSE in the project root for license information.
  */
 
+import { AppConsts } from "../shared/AppConsts";
 import { errorHandler } from "../utils/errorHandling";
 
 /* global global, Office, self, window, document, Excel */
@@ -75,9 +76,20 @@ async function InsertImgWithPreview(event: Office.AddinCommands.Event) {
   fileInput.click();
   event.completed();
 }
-
+var loginDialog: Office.Dialog;
 async function login() {
-  await Office.context.ui.displayDialogAsync("https://localhost:3000/login.html");
+  await Office.context.ui.displayDialogAsync(
+    `${AppConsts.appBaseUrl}/login.html`,
+    { height: 40, width: 20 },
+    function (asyncResult) {
+      loginDialog = asyncResult.value;
+      loginDialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
+    }
+  );
+}
+
+function processMessage(arg) {
+  loginDialog.close();
 }
 
 function getGlobal() {
