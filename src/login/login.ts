@@ -1,6 +1,5 @@
 /* global console, document, Excel, Office , window, OfficeRuntime */
 
-import { AppConsts } from "../shared/AppConsts";
 import { MeekouConsts } from "../shared/MeekouConsts";
 import { LoginByCodeInput, LoginOutput, MeekouApi } from "../services/meekouApi";
 //var intervalId = null;

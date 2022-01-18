@@ -33,6 +33,8 @@ module.exports = async (env, options) => {
       taskpane: "./src/taskpane/taskpane.ts",
       commands: "./src/commands/commands.ts",
       login: "./src/login/login.ts",
+      dataFromWeb: "./src/pages/data-from-web/data-from-web.ts",
+      dialog: "./src/dialog/dialog.ts",
     },
     output: {
       devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[loaders]",
@@ -86,6 +88,16 @@ module.exports = async (env, options) => {
         filename: "login.html",
         template: "./src/login/login.html",
         chunks: ["polyfill", "login", "meekou"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "data-from-web.html",
+        template: "./src/pages/data-from-web/data-from-web.html",
+        chunks: ["polyfill", "dataFromWeb", "meekou"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "dialog.html",
+        template: "./src/dialog/dialog.html",
+        chunks: ["polyfill", "dialog", "meekou"],
       }),
       new CopyWebpackPlugin({
         patterns: [

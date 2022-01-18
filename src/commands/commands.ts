@@ -3,16 +3,19 @@
  * See LICENSE in the project root for license information.
  */
 
+import { DialogEventArg, DialogInput } from "../shared/DialogInput";
 import { AppConsts } from "../shared/AppConsts";
 import { errorHandler } from "../utils/errorHandling";
+import { MeekouConsts } from "../shared/MeekouConsts";
 
-/* global global, Office, self, window, document, Excel */
+/* global global, Office, self, window, document, Excel, console */
 
 Office.onReady(() => {
   // If needed, Office.js is ready to be called
 });
 Office.initialize = () => {};
 var _count = 0;
+let dialog: Office.Dialog;
 /**
  * Shows a notification when the add-in command is executed.
  * @param event
@@ -78,17 +81,37 @@ async function InsertImgWithPreview(event: Office.AddinCommands.Event) {
 }
 var loginDialog: Office.Dialog;
 async function login() {
+  var dialogInput = new DialogInput();
+  dialogInput.name = MeekouConsts.DataFromWeb;
+  await showDialog(dialogInput);
+  // await Office.context.ui.displayDialogAsync(
+  //   `${AppConsts.appBaseUrl}/login.html`,
+  //   { height: 40, width: 20 },
+  //   function (asyncResult) {
+  //     loginDialog = asyncResult.value;
+  //     loginDialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
+  //   }
+  // );
+}
+
+async function showDialog(dialogInput: DialogInput) {
   await Office.context.ui.displayDialogAsync(
-    `${AppConsts.appBaseUrl}/login.html`,
+    `${AppConsts.appBaseUrl}/dialog.html`,
     { height: 40, width: 20 },
     function (asyncResult) {
-      loginDialog = asyncResult.value;
-      loginDialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
+      dialog = asyncResult.value;
+      dialog.addEventHandler(Office.EventType.DialogMessageReceived, dialogMessageFromChild);
+      //show specific dialog
+      dialog.messageChild(JSON.stringify(dialogInput));
     }
   );
 }
-
-function processMessage(arg) {
+function dialogMessageFromChild(arg: any) {
+  console.log(arg.message);
+  dialog.close();
+}
+function processMessage(arg: DialogEventArg) {
+  console.log(arg.message);
   loginDialog.close();
 }
 

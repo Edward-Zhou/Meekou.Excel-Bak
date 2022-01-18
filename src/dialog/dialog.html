@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta http-equiv="refresh" content="0; url=https://web.meekou.cn"> -->
+    <title>Contoso Task Pane Add-in</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+
+    <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.1/css/fabric.min.css"/>
+    
+    <!-- Template styles -->
+</head>
+
+<body>
+    <div id="data-from-web" style="display:none">
+        <div>来自网页</div>
+        <div>Url</div>
+        <input id="sourceUrl"/>
+        <embed id="webView" />
+        <div>
+            <button>导入</button>
+        </div>   
+    </div>
+    <div id="data-from-img" style="display:none">
+        <div>来自图片</div>
+        <div>图片</div>
+        <input id="imgs" type="file" multiple/>
+        <div>
+            <button>导入</button>
+        </div>         
+    </div>
+    <div id="messages">
+
+    </div>
+ 
+</body>
+
+</html>
