@@ -21,14 +21,14 @@ module.exports = async (env, options) => {
   const config = {
     devtool: "source-map",
     entry: {
-      meekou: [
-        "./src/shared/appconsts.ts",
-        "./src/shared/meekouconsts.ts",
-        "./src/shared/dialoginput.ts",
-        "./src/services/meekouapi.ts",
-        "./src/services/common.model.ts",
-        "./src/services/http.ts",
-      ],
+      // meekou: [
+      //   "./src/shared/appconsts.ts",
+      //   "./src/shared/meekouconsts.ts",
+      //   "./src/shared/dialoginput.ts",
+      //   "./src/services/meekouapi.ts",
+      //   "./src/services/common.model.ts",
+      //   "./src/services/http.ts",
+      // ],
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       functions: "./src/functions/functions.ts",
       taskpane: "./src/taskpane/taskpane.ts",
@@ -83,22 +83,22 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
-        chunks: ["polyfill", "taskpane", "commands", "functions", "meekou"],
+        chunks: ["polyfill", "taskpane", "commands", "functions"],
       }),
       new HtmlWebpackPlugin({
         filename: "login.html",
         template: "./src/login/login.html",
-        chunks: ["polyfill", "login", "meekou"],
+        chunks: ["polyfill", "login"],
       }),
       new HtmlWebpackPlugin({
         filename: "data-from-web.html",
         template: "./src/pages/data-from-web/data-from-web.html",
-        chunks: ["polyfill", "dataFromWeb", "meekou"],
+        chunks: ["polyfill", "dataFromWeb"],
       }),
       new HtmlWebpackPlugin({
         filename: "dialog.html",
         template: "./src/dialog/dialog.html",
-        chunks: ["polyfill", "dialog", "meekou"],
+        chunks: ["polyfill", "dialog"],
       }),
       new CopyWebpackPlugin({
         patterns: [
