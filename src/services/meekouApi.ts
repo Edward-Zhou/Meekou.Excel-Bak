@@ -1,6 +1,6 @@
-import { AppConsts } from "../shared/appConsts";
+import { AppConsts } from "../shared/appconsts";
 import * as moment from "moment";
-import * as http from "../services/http";
+import * as http from "./http";
 import { MeekouResponse } from "./common.model";
 export class MeekouApi {
   private baseUrl: string;

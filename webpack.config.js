@@ -22,10 +22,10 @@ module.exports = async (env, options) => {
     devtool: "source-map",
     entry: {
       meekou: [
-        "./src/shared/appConsts.ts",
-        "./src/shared/meekouConsts.ts",
-        "./src/shared/dialogInput.ts",
-        "./src/services/meekouApi.ts",
+        "./src/shared/appconsts.ts",
+        "./src/shared/meekouconsts.ts",
+        "./src/shared/dialoginput.ts",
+        "./src/services/meekouapi.ts",
         "./src/services/common.model.ts",
         "./src/services/http.ts",
       ],
