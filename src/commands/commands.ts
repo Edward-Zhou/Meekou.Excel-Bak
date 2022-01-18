@@ -7,6 +7,7 @@ import { DialogEventArg, DialogInput } from "../shared/dialoginput";
 import { AppConsts } from "../shared/appconsts";
 import { errorHandler } from "../utils/errorHandling";
 import { MeekouConsts } from "../shared/meekouconsts";
+import { json } from "express";
 
 /* global global, Office, self, window, document, Excel, console */
 
@@ -80,10 +81,11 @@ async function InsertImgWithPreview(event: Office.AddinCommands.Event) {
   event.completed();
 }
 var loginDialog: Office.Dialog;
-async function login() {
+async function login(event: Office.AddinCommands.Event) {
   var dialogInput = new DialogInput();
   dialogInput.name = MeekouConsts.DataFromWeb;
   await showDialog(dialogInput);
+  //show specific dialog
   // await Office.context.ui.displayDialogAsync(
   //   `${AppConsts.appBaseUrl}/login.html`,
   //   { height: 40, width: 20 },
@@ -92,29 +94,35 @@ async function login() {
   //     loginDialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
   //   }
   // );
+  event.completed();
 }
 
 async function showDialog(dialogInput: DialogInput) {
+  console.log(dialogInput);
   await Office.context.ui.displayDialogAsync(
     `${AppConsts.appBaseUrl}/dialog.html`,
     { height: 40, width: 20 },
     function (asyncResult) {
       dialog = asyncResult.value;
       dialog.addEventHandler(Office.EventType.DialogMessageReceived, dialogMessageFromChild);
-      //show specific dialog
-      dialog.messageChild(JSON.stringify(dialogInput));
+      dialog.addEventHandler(Office.EventType.DialogEventReceived, processDialogEvent);
+      setTimeout(function() {
+        dialog.messageChild(JSON.stringify(dialogInput));
+    }, 2000);
     }
   );
 }
 function dialogMessageFromChild(arg: any) {
-  console.log(arg.message);
   dialog.close();
 }
-function processMessage(arg: DialogEventArg) {
-  console.log(arg.message);
-  loginDialog.close();
+function processDialogEvent(arg: any){
+  Excel.run(function (context) {
+    var sheet = context.workbook.worksheets.getActiveWorksheet();
+    var range = sheet.getRange("C3");
+    range.values = [[JSON.stringify(arg)]];
+    return context.sync();
+  }).catch();
 }
-
 function getGlobal() {
   return typeof self !== "undefined"
     ? self
