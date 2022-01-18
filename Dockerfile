@@ -8,7 +8,7 @@ WORKDIR /usr/local/app
 COPY ./ ./
 
 # Install all the dependencies
-RUN npm install
+RUN npm ci
 
 # Generate the build of the application
 RUN npm run build:prod
