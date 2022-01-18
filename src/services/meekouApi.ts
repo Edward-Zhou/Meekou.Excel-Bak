@@ -1,4 +1,4 @@
-import { AppConsts } from "../shared/AppConsts";
+import { AppConsts } from "../shared/appConsts";
 import * as moment from "moment";
 import * as http from "../services/http";
 import { MeekouResponse } from "./common.model";

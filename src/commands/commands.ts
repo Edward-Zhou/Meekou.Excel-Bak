@@ -3,10 +3,10 @@
  * See LICENSE in the project root for license information.
  */
 
-import { DialogEventArg, DialogInput } from "../shared/DialogInput";
-import { AppConsts } from "../shared/AppConsts";
+import { DialogEventArg, DialogInput } from "../shared/dialogInput";
+import { AppConsts } from "../shared/appConsts";
 import { errorHandler } from "../utils/errorHandling";
-import { MeekouConsts } from "../shared/MeekouConsts";
+import { MeekouConsts } from "../shared/meekouConsts";
 
 /* global global, Office, self, window, document, Excel, console */
 

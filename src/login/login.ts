@@ -1,6 +1,6 @@
 /* global console, document, Excel, Office , window, OfficeRuntime */
 
-import { MeekouConsts } from "../shared/MeekouConsts";
+import { MeekouConsts } from "../shared/meekouConsts";
 import { LoginByCodeInput, LoginOutput, MeekouApi } from "../services/meekouApi";
 //var intervalId = null;
 // the initialize function must be run each time a new page is loaded

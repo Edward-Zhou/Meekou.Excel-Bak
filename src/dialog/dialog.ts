@@ -1,6 +1,6 @@
 /* global console, document, Excel, Office , window, OfficeRuntime */
 
-import { DialogEventArg, DialogInput } from "../shared/DialogInput";
+import { DialogEventArg, DialogInput } from "../shared/dialogInput";
 
 let dialogInput: DialogInput;
 
