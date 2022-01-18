@@ -6,10 +6,6 @@
     "url": "https://github.com/OfficeDev/Excel-Custom-Functions.git"
   },
   "license": "MIT",
-  "engines": {
-    "node": ">=14 <15",
-    "npm": ">=6 <7"
-  },
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "build": "webpack --mode development",
